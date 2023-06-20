@@ -1,0 +1,49 @@
+{
+  "name": "line-to-api-extension",
+  "displayName": "Line to API Extension",
+  "description": "Send current line to an API",
+  "version": "0.0.1",
+  "publisher": "YourPublisherName",
+  "engines": {
+    "vscode": "^1.79.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.sendLineToApi",
+    "onLanguage:python"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.sendLineToApi",
+        "title": "Send Line to API"
+      }
+    ],
+    "keybindings": [{
+      "command": "extension.sendLineToApi",
+      "key": "ctrl+k ctrl+k",
+      "mac": "cmd+k cmd+k",
+      "when": "editorTextFocus"
+    }],
+    "configuration": {
+      "type": "object",
+      "title": "Line to API Extension",
+      "properties": {
+        "lineToApi.endpoint": {
+          "type": "string",
+          "default": "https://example.com/api",
+          "description": "The API endpoint to send the current line to."
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.79.1"
+  },
+  "dependencies": {
+    "axios": "1.4.0"
+  }
+}
