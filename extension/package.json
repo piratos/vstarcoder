@@ -1,17 +1,17 @@
 {
-  "name": "line-to-api-extension",
-  "displayName": "Line to API Extension",
-  "description": "Send current line to an API",
-  "version": "0.0.1",
-  "publisher": "YourPublisherName",
+  "name": "vstarcoder",
+  "displayName": "VStarCoder Extension",
+  "description": "Code autocompletion based on huggingface inference API",
+  "version": "0.0.2",
+  "publisher": "piratos",
   "engines": {
     "vscode": "^1.79.1"
   },
   "categories": [
     "Other"
   ],
+  "icon": "./icons/light-icon.png",
   "activationEvents": [
-    "onCommand:extension.sendLineToApi",
     "onLanguage:python"
   ],
   "main": "./out/extension.js",
@@ -20,6 +20,14 @@
       {
         "command": "extension.sendLineToApi",
         "title": "Send Line to API"
+      },
+      {
+        "command": "extension.sendWordsToApi",
+        "title": "Send words to API (websocket version)"
+      },
+      {
+        "command": "extension.sendSelectionToApi",
+        "title": "Send Selection to API"
       }
     ],
     "keybindings": [
@@ -27,6 +35,12 @@
         "command": "extension.sendLineToApi",
         "key": "ctrl+k ctrl+k",
         "mac": "cmd+k cmd+k",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.sendSelectionToApi",
+        "key": "ctrl+m ctrl+m",
+        "mac": "cmd+l cmd+l",
         "when": "editorTextFocus"
       },
       {
@@ -38,8 +52,13 @@
     ],
     "configuration": {
       "type": "object",
-      "title": "Line to API Extension",
+      "title": "VStarCoder Extension",
       "properties": {
+        "lineToApi.maxTokens": {
+          "type": "number",
+          "default": 128,
+          "description": "max number of token to generate"
+        },
         "lineToApi.apiEndpoint": {
           "type": "string",
           "default": "http://example.com/api/generate",
@@ -50,6 +69,7 @@
           "default": "http://example.com/ws/generate",
           "description": "The WebSocket endpoint to send the current line to."
         }
+
       }
     }
   },
@@ -68,6 +88,6 @@
     "build": "npm run compile && npm run package && npm run install",
     "compile": "tsc",
     "package": "vsce package --allow-missing-repository",
-    "install": "code --install-extension line-to-api-extension-${npm_package_version}.vsix --force"
+    "install": "code --install-extension vstarcoder-${npm_package_version}.vsix --force"
   }
 }
