@@ -38,28 +38,33 @@
         "key": "ctrl+l ctrl+l",
         "mac": "cmd+l cmd+l",
         "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.sendContextToApi",
+        "key": "ctrl+; ctrl+;",
+        "mac": "cmd+; cmd+;",
+        "when": "editorTextFocus"
       }
     ],
     "configuration": {
       "type": "object",
       "title": "VStarCoder Extension",
       "properties": {
-        "lineToApi.maxTokens": {
+        "vstarcoder.maxTokens": {
           "type": "number",
           "default": 128,
           "description": "max number of token to generate"
         },
-        "lineToApi.apiEndpoint": {
+        "vstarcoder.contextSize": {
+          "type": "number",
+          "default": 2,
+          "description": "Number of lines before and after cursor, only used with context inference"
+        },
+        "vstarcoder.apiEndpoint": {
           "type": "string",
           "default": "http://example.com/api/generate",
           "description": "The API endpoint to send the current line to."
-        },
-        "lineToApi.websocketEndpoint": {
-          "type": "string",
-          "default": "http://example.com/ws/generate",
-          "description": "The WebSocket endpoint to send the current line to."
         }
-
       }
     }
   },
