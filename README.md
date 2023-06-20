@@ -4,6 +4,10 @@ vs code extension to receive code completion from a "local" instance of starcode
 
 backend [huggingface-vscode-endpoint-server](https://github.com/piratos/huggingface-vscode-endpoint-server)
 
+## Screencast
+
+![](https://github.com/piratos/vstarcoder/blob/main/screencast.gif)
+
 ## Install
 
 1. Download the extension from the release (.vsix file)
