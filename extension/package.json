@@ -2,7 +2,7 @@
   "name": "vstarcoder",
   "displayName": "VStarCoder Extension",
   "description": "Code autocompletion based on huggingface inference API",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "piratos",
   "engines": {
     "vscode": "^1.79.1"
