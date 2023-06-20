@@ -3,3 +3,5 @@ out/
 .gitignore
 .vscode/
 node_modules/
+extension/node_modules
+extension/out
