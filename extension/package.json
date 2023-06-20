@@ -35,7 +35,7 @@
       },
       {
         "command": "extension.sendSelectionToApi",
-        "key": "ctrl+m ctrl+m",
+        "key": "ctrl+l ctrl+l",
         "mac": "cmd+l cmd+l",
         "when": "editorTextFocus"
       }
