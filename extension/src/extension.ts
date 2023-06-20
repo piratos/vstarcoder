@@ -11,18 +11,6 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
-  context.subscriptions.push(disposableline);
-
-  let disposablewords = vscode.commands.registerCommand('extension.sendWordsToApi', async () => {
-    const editor = vscode.window.activeTextEditor;
-    if (editor) {
-      const line = editor.document.lineAt(editor.selection.active.line).text.trim();
-      await sendWordsToApi(line);
-    }
-  });
-
-  context.subscriptions.push(disposablewords);
-
   let disposableselection = vscode.commands.registerCommand('extension.sendSelectionToApi', async () => {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
@@ -30,6 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
+  context.subscriptions.push(disposableline);
   context.subscriptions.push(disposableselection);
 }
 
@@ -120,47 +109,5 @@ async function sendSelectionToApi() {
     }
   } else {
     vscode.window.showErrorMessage('No active text editor.');
-  }
-}
-
-
-async function sendWordsToApi(line: string) {
-  const endpoint = vscode.workspace.getConfiguration().get('lineToApi.websocketEndpoint') as string;
-  const maxtokens = vscode.workspace.getConfiguration().get('lineToApi.maxTokens') as number;
-  const editor = vscode.window.activeTextEditor;
-  // textEditor is hooribly slow when updating text
-  // while websockets will respond almost immediatly after the first word
-  // is returned, streaming word by word does not seem viable but I ll keep
-  // the logic here
-  // it is recommended to use http request using Ctrl+k+k
-  const wordCache: string[] = [];
-
-  try {
-    const socket = new WebSocket(endpoint);
-
-    socket.on('open', () => {
-      console.log('WebSocket connection established');
-      socket.send(line); // Send the current line to the WebSocket server
-    });
-
-    socket.on('message', async (message: string) => {
-      const generatedWord = message.toString();
-      wordCache.push(generatedWord);
-    });
-
-    // the server will close the socket after last token is sent
-    socket.on('close', () => {
-      console.log('WebSocket connection closed');
-      insertTextAfterCurrentLine(wordCache.join(""));
-      wordCache.splice(0);
-    });
-
-    socket.on('error', (error) => {
-      console.error('WebSocket error:', error);
-      vscode.window.showErrorMessage('Failed to receive words from API.');
-    });
-  } catch (error) {
-    console.error('WebSocket connection error:', error);
-    vscode.window.showErrorMessage('Failed to establish WebSocket connection.');
   }
 }

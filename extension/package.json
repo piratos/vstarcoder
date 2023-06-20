@@ -22,10 +22,6 @@
         "title": "Send Line to API"
       },
       {
-        "command": "extension.sendWordsToApi",
-        "title": "Send words to API (websocket version)"
-      },
-      {
         "command": "extension.sendSelectionToApi",
         "title": "Send Selection to API"
       }
@@ -40,12 +36,6 @@
       {
         "command": "extension.sendSelectionToApi",
         "key": "ctrl+m ctrl+m",
-        "mac": "cmd+l cmd+l",
-        "when": "editorTextFocus"
-      },
-      {
-        "command": "extension.sendWordsToApi",
-        "key": "ctrl+l ctrl+l",
         "mac": "cmd+l cmd+l",
         "when": "editorTextFocus"
       }
